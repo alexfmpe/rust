@@ -93,7 +93,7 @@ impl Step for ToolBuild {
                     package_id,
                     features,
                     filenames,
-                    target: _,
+                    ..
                 } => {
                     (package_id, features, filenames)
                 }
@@ -216,17 +216,16 @@ pub fn prepare_tool_cargo(
     }
 
     let mut features = extra_features.iter().cloned().collect::<Vec<_>>();
-    if builder.build.config.cargo_native_static {
-        if path.ends_with("cargo") ||
+    if builder.build.config.cargo_native_static && (
+            path.ends_with("cargo") ||
             path.ends_with("rls") ||
             path.ends_with("clippy") ||
             path.ends_with("miri") ||
-            path.ends_with("rustfmt")
+            path.ends_with("rustfmt"))
         {
             cargo.env("LIBZ_SYS_STATIC", "1");
             features.push("rustc-workspace-hack/all-static".to_string());
         }
-    }
 
     // if tools are using lzma we want to force the build script to build its
     // own copy

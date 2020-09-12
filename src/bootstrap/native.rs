@@ -183,14 +183,10 @@ impl Step for Llvm {
         }
 
         // For distribution we want the LLVM tools to be *statically* linked to libstdc++
-        if builder.config.llvm_tools_enabled || want_lldb {
-            if !target.contains("windows") {
-                if target.contains("apple") {
-                    cfg.define("CMAKE_EXE_LINKER_FLAGS", "-static-libstdc++");
-                } else {
-                    cfg.define("CMAKE_EXE_LINKER_FLAGS", "-Wl,-Bsymbolic -static-libstdc++");
-                }
-            }
+        if builder.config.llvm_tools_enabled || want_lldb && !target.contains("windows") && target.contains("apple") {
+            cfg.define("CMAKE_EXE_LINKER_FLAGS", "-static-libstdc++");
+        } else {
+            cfg.define("CMAKE_EXE_LINKER_FLAGS", "-Wl,-Bsymbolic -static-libstdc++");
         }
 
         if target.contains("msvc") {

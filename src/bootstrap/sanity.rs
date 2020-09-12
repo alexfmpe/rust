@@ -101,10 +101,8 @@ pub fn check(build: &mut Build) {
         //
         // In these cases we automatically enable Ninja if we find it in the
         // environment.
-        if !build.config.ninja && build.config.build.contains("msvc") {
-            if cmd_finder.maybe_have("ninja").is_some() {
-                build.config.ninja = true;
-            }
+        if !build.config.ninja && build.config.build.contains("msvc") && cmd_finder.maybe_have("ninja").is_some() {
+            build.config.ninja = true;
         }
     }
 
