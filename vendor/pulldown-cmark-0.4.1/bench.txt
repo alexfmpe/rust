@@ -1,0 +1,6 @@
+                 real    user    sys
+pulldown-cmark   2.765   1.139   1.586
+pd with 243      0.778   0.526   0.224
+cmark            1.512   0.964   0.500
+md4c             0.861   0.417   0.355
+hoedown          0.971   0.537   0.399
