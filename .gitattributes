@@ -7,7 +7,7 @@
 *.fixed linguist-language=Rust
 src/etc/installer/gfx/* binary
 *.woff binary
-src/vendor/** -text
+vendor/** -text
 Cargo.lock linguist-generated=false
 
 # Older git versions try to fix line endings on images, this prevents it.
